@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>🐱 CAT Public DApp</title>
+  <style>
+    :root{--bg:#0b0b0f;--card:#13131a;--fg:#f7f2d0;--muted:#b6b2a0;--gold:#ffcc33;--line:#2b2b37}
+    *{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto}
+    body{margin:0;background:var(--bg);color:var(--fg)}
+    .wrap{max-width:920px;margin:22px auto;padding:16px}
+    h1{font-weight:800}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0}
+    .row{display:grid;grid-template-columns:160px 1fr;gap:10px;align-items:center;margin:10px 0}
+    input,select,button{padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:#0f0f16;color:var(--fg)}
+    button{background:var(--gold);color:#222;border:none;font-weight:700;cursor:pointer}
+    .btn{display:inline-flex;gap:8px;align-items:center}
+    .list{display:grid;gap:12px}
+    .pkg{padding:12px;border:1px dashed var(--line);border-radius:10px}
+    .mono{font-family:ui-monospace,Menlo,Consolas,monospace}
+    .muted{color:var(--muted)}
+    .hr{height:1px;background:var(--line);margin:12px 0}
+    .tag{background:#222;border:1px solid var(--line);padding:4px 8px;border-radius:999px;font-size:12px;color:var(--muted)}
+    .toast{position:fixed;right:16px;bottom:16px;background:#111;border:1px solid var(--line);color:var(--fg);padding:10px 12px;border-radius:10px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>🐱 CAT Public DApp</h1>
+
+    <div class="card">
+      <button id="btnConnect" class="btn">เชื่อมต่อกระเป๋า</button>
+      <span id="connState" class="tag">ยังไม่เชื่อมต่อ</span>
+      <div class="hr"></div>
+      <div>สัญญา: <span class="mono" id="contractAddr">-</span></div>
+      <div>เครือข่าย: BSC (0x38)</div>
+    </div>
+
+    <div class="card">
+      <h3>📦 เลือกแพ็กเกจ</h3>
+      <div class="list" id="pkgList"></div>
+      <div class="hr"></div>
+      <div class="row"><label>Referrer (ถ้ามี)</label><input id="refAddr" placeholder="0x..."/></div>
+    </div>
+
+    <div class="card">
+      <h3>💼 สถานะของคุณ</h3>
+      <div>USDT ของคุณ: <b class="mono" id="myUsdt">-</b></div>
+      <div><span id="symStake">CAT</span> ของคุณ: <b class="mono" id="myStake">-</b></div>
+      <div>รีเฟอร์รัลสะสม (USDT): <b class="mono" id="myRefAcc">-</b></div>
+      <div>เคลมรีเฟอร์รัลได้ทุก: <b class="mono" id="refInt">-</b></div>
+      <div class="hr"></div>
+      <h4>🎁 การเคลม</h4>
+      <div class="row"><label>Stake index</label><input id="claimIndex" placeholder="เช่น 0"/></div>
+      <div class="row"><label>Unstake index</label><input id="unstakeIndex" placeholder="เช่น 0"/></div>
+      <div class="row"><label></label>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button id="btnClaimStake">เคลมดอกเบี้ย</button>
+          <button id="btnClaimRef">เคลมรีเฟอร์รัล (USDT)</button>
+          <button id="btnUnstake">ถอนต้น</button>
+        </div>
+      </div>
+      <div id="stakeList" class="list"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" style="display:none"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.4/dist/web3.min.js"></script>
+  <script src="./config.js"></script>
+  <script src="./public.js"></script>
+</body>
+</html>
